@@ -10,7 +10,10 @@ namespace Calculator.ViewModels
     {
 		private decimal _num = 0;
         private bool IsDotButtonPushed = false;
-        private bool dotButtoActive = true;
+        private bool dotButtonActive = true;
+        private bool plusFlag = false, minusFlag = false, multiFlag = false, divideFlag = false, isSecondInput = false;
+   
+        private decimal firstInputNum, secondInputNum;
 
 		public decimal Num
 		{
@@ -31,23 +34,45 @@ namespace Calculator.ViewModels
         public void PushButtonZero()
         {
             // 現在のテキストボックス値が0且つdotボタン非押下状態なら何もしないで早期リターン
-            if(CheckCurrentNumIsZero() && !IsDotButtonPushed && dotButtoActive)
+            if(CheckCurrentNumIsZero() && !IsDotButtonPushed && dotButtonActive)
             {
                 return;
             }
 
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".0");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".0");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "0");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "0");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".0");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "0");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -58,39 +83,81 @@ namespace Calculator.ViewModels
         public void PushButtonDoubleZero()
         {
             // 現在のテキストボックス値が0且つdotボタン非押下状態なら何もしないで早期リターン
-            if (CheckCurrentNumIsZero() && !IsDotButtonPushed && dotButtoActive)
+            if (CheckCurrentNumIsZero() && !IsDotButtonPushed && dotButtonActive)
             {
                 return;
             }
 
             string tempNum = Num.ToString();
 
-            if (IsDotButtonPushed)
+            if (!isSecondInput)
             {
-                // 現在のテキストボックス値桁数が19桁なら0を追加する。
-                if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                if (IsDotButtonPushed)
                 {
-                    Num = decimal.Parse(tempNum + ".0");
-                    IsDotButtonPushed = false;
+                    // 現在のテキストボックス値桁数が19桁なら0を追加する。
+                    if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".0");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
+                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".00");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
                 }
-                // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-                else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                else
                 {
-                    Num = decimal.Parse(tempNum + ".00");
-                    IsDotButtonPushed = false;
+                    // 現在のテキストボックス値桁数が19桁なら0を追加する。
+                    if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "0");
+                        Num = firstInputNum;
+                    }
+                    // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
+                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "00");
+                        Num = firstInputNum;
+                    }
                 }
             }
             else
             {
-                // 現在のテキストボックス値桁数が19桁なら0を追加する。
-                if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                if (IsDotButtonPushed)
                 {
-                    Num = decimal.Parse(tempNum + "0");
+                    // 現在のテキストボックス値桁数が19桁なら0を追加する。
+                    if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".0");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
+                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".00");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
                 }
-                // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-                else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                else
                 {
-                    Num = decimal.Parse(tempNum + "00");
+                    // 現在のテキストボックス値桁数が19桁なら0を追加する。
+                    if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "0");
+                        Num = secondInputNum;
+                    }
+                    // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
+                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "00");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -102,16 +169,38 @@ namespace Calculator.ViewModels
 		{
 			string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".1");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".1");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "1");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "1");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".1");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "1");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -123,16 +212,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".2");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".2");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "2");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "2");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".2");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "2");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -144,16 +255,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".3");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".3");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "3");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "3");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".3");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "3");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -165,16 +298,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".4");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".4");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "4");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "4");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".4");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "4");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -186,16 +341,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".5");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".5");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "5");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "5");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".5");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "5");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -207,16 +384,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".6");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".6");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "6");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "6");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".6");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "6");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -228,16 +427,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".7");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".7");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "7");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "7");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".7");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "7");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -249,16 +470,38 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if (IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".8");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".8");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "8");
+                        Num = firstInputNum;
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "8");
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".8");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "8");
+                        Num = secondInputNum;
+                    }
                 }
             }
         }
@@ -270,17 +513,39 @@ namespace Calculator.ViewModels
         {
             string tempNum = Num.ToString();
 
-            if (CheckCurrentNumLenght(tempNum.Length))
+            if (!isSecondInput)
             {
-                if(IsDotButtonPushed)
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + ".9");
-                    IsDotButtonPushed = false;
+                    if (IsDotButtonPushed)
+                    {
+                        firstInputNum = decimal.Parse(tempNum + ".9");
+                        Num = firstInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        firstInputNum = decimal.Parse(tempNum + "9");
+                        Num = firstInputNum;
+                    }
                 }
-                else 
+            }
+            else
+            {
+                if (CheckCurrentNumLenght(tempNum.Length))
                 {
-                    Num = decimal.Parse(tempNum + "9");
-                }                
+                    if (IsDotButtonPushed)
+                    {
+                        secondInputNum = decimal.Parse(tempNum + ".9");
+                        Num = secondInputNum;
+                        IsDotButtonPushed = false;
+                    }
+                    else
+                    {
+                        secondInputNum = decimal.Parse(tempNum + "9");
+                        Num = secondInputNum;
+                    }
+                }
             }
         }
 
@@ -297,11 +562,131 @@ namespace Calculator.ViewModels
         /// </summary>
         public void PushButtonDot()
         {
-            if(dotButtoActive)
+            if(dotButtonActive)
             {
                 IsDotButtonPushed = true;
-                dotButtoActive = false; // +とか計算ボタン押下時にアクティベートする
+                dotButtonActive = false; // +とか計算ボタン押下時にアクティベートする
             }       
+        }
+
+        /// <summary>
+        /// [+]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonPlus()
+        {
+            firstInputNum = Num;
+            Num = 0;
+
+            plusFlag = true;
+            minusFlag = false;
+            multiFlag = false;
+            divideFlag = false;
+            isSecondInput = true;
+
+            dotButtonActive = true;
+        }
+
+        /// <summary>
+        /// [-]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonMinus()
+        {
+            firstInputNum = Num;
+            Num = 0;
+
+            plusFlag = false;
+            minusFlag = true;
+            multiFlag = false;
+            divideFlag = false;
+            isSecondInput = true;
+
+            dotButtonActive = true;
+        }
+
+        /// <summary>
+        /// [x]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonMulti()
+        {
+            firstInputNum = Num;
+            Num = 0;
+
+            plusFlag = false;
+            minusFlag = false;
+            multiFlag = true;
+            divideFlag = false;
+            isSecondInput = true;
+
+            dotButtonActive = true;
+        }
+
+        /// <summary>
+        /// [x]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonDivide()
+        {
+            firstInputNum = Num;
+            Num = 0;
+
+            plusFlag = false;
+            minusFlag = false;
+            multiFlag = false;
+            divideFlag = true;
+            isSecondInput = true;
+
+            dotButtonActive = true;
+        }
+
+        /// <summary>
+        /// [=]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonEqual()
+        {
+            string tempNum;
+
+            if (plusFlag)
+            {
+                firstInputNum += secondInputNum;
+                tempNum = firstInputNum.ToString();
+                if (CheckCurrentNumLenght(tempNum.Length))
+                {
+                    Num = firstInputNum;
+                }
+                //plusFlag = false;
+            }
+            else if (minusFlag) 
+            {
+                firstInputNum -= secondInputNum;
+                tempNum = firstInputNum.ToString();
+                if (CheckCurrentNumLenght(tempNum.Length))
+                {
+                    Num = firstInputNum;
+                }
+                //minusFlag = false;
+            }
+            else if (multiFlag)
+            {
+                firstInputNum *= secondInputNum;
+                tempNum = firstInputNum.ToString();
+                if (CheckCurrentNumLenght(tempNum.Length))
+                {
+                    Num = firstInputNum;
+                }
+                //multiFlag = false;
+            }
+            else if (divideFlag)
+            {
+                firstInputNum /= secondInputNum;
+                tempNum = firstInputNum.ToString();
+                if (CheckCurrentNumLenght(tempNum.Length))
+                {
+                    Num = firstInputNum;
+                }
+                //divideFlag = false;
+            }
+
+            isSecondInput = false;
+            dotButtonActive = true;
         }
 
         /// <summary>
