@@ -8,7 +8,7 @@ namespace Calculator.ViewModels
 {
     public class ShellViewModel : Caliburn.Micro.Screen
     {
-		private int _value;
+		private int _value = 0;
 
 		public int Value
 		{
@@ -18,7 +18,7 @@ namespace Calculator.ViewModels
 			}
 			set 
 			{ 
-				_value = value;
+				_value = Value;
 			}
 		}
 
