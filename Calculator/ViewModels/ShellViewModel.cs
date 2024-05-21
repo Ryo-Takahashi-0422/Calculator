@@ -9,6 +9,8 @@ namespace Calculator.ViewModels
     public class ShellViewModel : Caliburn.Micro.Screen
     {
 		private decimal _num = 0;
+        private bool IsDotButtonPushed = false;
+        private bool dotButtoActive = true;
 
 		public decimal Num
 		{
@@ -28,8 +30,8 @@ namespace Calculator.ViewModels
         /// </summary>
         public void PushButtonZero()
         {
-            // 現在のテキストボックス値が0なら何もしないで早期リターン
-            if(CheckCurrentNumIsZero())
+            // 現在のテキストボックス値が0且つdotボタン非押下状態なら何もしないで早期リターン
+            if(CheckCurrentNumIsZero() && !IsDotButtonPushed && dotButtoActive)
             {
                 return;
             }
@@ -38,7 +40,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "0");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".0");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "0");
+                }
             }
         }
 
@@ -47,23 +57,41 @@ namespace Calculator.ViewModels
         /// </summary>
         public void PushButtonDoubleZero()
         {
-            // 現在のテキストボックス値が0なら何もしないで早期リターン
-            if (CheckCurrentNumIsZero())
+            // 現在のテキストボックス値が0且つdotボタン非押下状態なら何もしないで早期リターン
+            if (CheckCurrentNumIsZero() && !IsDotButtonPushed && dotButtoActive)
             {
                 return;
             }
 
             string tempNum = Num.ToString();
 
-            // 現在のテキストボックス値桁数が19桁なら0を追加する。
-            if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+            if (IsDotButtonPushed)
             {
-                Num = decimal.Parse(tempNum + "0");
+                // 現在のテキストボックス値桁数が19桁なら0を追加する。
+                if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                {
+                    Num = decimal.Parse(tempNum + ".0");
+                    IsDotButtonPushed = false;
+                }
+                // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
+                else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                {
+                    Num = decimal.Parse(tempNum + ".00");
+                    IsDotButtonPushed = false;
+                }
             }
-            // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-            else if (CheckCurrentNumLenght(tempNum.Length + 1))
+            else
             {
-                Num = decimal.Parse(tempNum + "00");
+                // 現在のテキストボックス値桁数が19桁なら0を追加する。
+                if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                {
+                    Num = decimal.Parse(tempNum + "0");
+                }
+                // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
+                else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                {
+                    Num = decimal.Parse(tempNum + "00");
+                }
             }
         }
 
@@ -75,9 +103,17 @@ namespace Calculator.ViewModels
 			string tempNum = Num.ToString();
 
             if (CheckCurrentNumLenght(tempNum.Length))
-			{
-                Num = decimal.Parse(tempNum + "1");
-            }            
+            {
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".1");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "1");
+                }
+            }
         }
 
         /// <summary>
@@ -89,7 +125,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "2");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".2");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "2");
+                }
             }
         }
 
@@ -102,7 +146,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "3");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".3");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "3");
+                }
             }
         }
 
@@ -115,7 +167,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "4");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".4");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "4");
+                }
             }
         }
 
@@ -128,7 +188,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "5");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".5");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "5");
+                }
             }
         }
 
@@ -141,7 +209,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "6");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".6");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "6");
+                }
             }
         }
 
@@ -154,7 +230,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "7");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".7");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "7");
+                }
             }
         }
 
@@ -167,7 +251,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "8");
+                if (IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".8");
+                    IsDotButtonPushed = false;
+                }
+                else
+                {
+                    Num = decimal.Parse(tempNum + "8");
+                }
             }
         }
 
@@ -180,7 +272,15 @@ namespace Calculator.ViewModels
 
             if (CheckCurrentNumLenght(tempNum.Length))
             {
-                Num = decimal.Parse(tempNum + "9");
+                if(IsDotButtonPushed)
+                {
+                    Num = decimal.Parse(tempNum + ".9");
+                    IsDotButtonPushed = false;
+                }
+                else 
+                {
+                    Num = decimal.Parse(tempNum + "9");
+                }                
             }
         }
 
@@ -190,6 +290,18 @@ namespace Calculator.ViewModels
         public void PushButtonAC()
         {
             Num = 0;
+        }
+
+        /// <summary>
+        /// [.]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonDot()
+        {
+            if(dotButtoActive)
+            {
+                IsDotButtonPushed = true;
+                dotButtoActive = false; // +とか計算ボタン押下時にアクティベートする
+            }       
         }
 
         /// <summary>
