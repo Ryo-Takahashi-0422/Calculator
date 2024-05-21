@@ -31,7 +31,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <!-- Row1 -->
-        <TextBox Grid.Row="1" Grid.Column="1" Foreground="White" Background="Black" IsReadOnly="True" Margin="0,0,0,10" Grid.RowSpan="2" x:Name="Value" FlowDirection="RightToLeft"/>
+        <TextBox x:Name="Num" Grid.Row="1" Grid.Column="1" Foreground="White" Background="Black" IsReadOnly="True" Margin="0,0,0,10" Grid.RowSpan="2" FlowDirection="RightToLeft"/>
         <!-- <TextBlock Text="{Binding Path=Value, Mode=OneWay}" Grid.Row="1" Grid.Column="1" Background="Black"></TextBlock> -->
         <!-- Row2 -->
         <Button Grid.Row="3" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">M+</Button>
@@ -39,23 +39,23 @@
         <Button Grid.Row="3" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">MRC</Button>
 
         <!-- Row3 -->
-        <Button Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">7</Button>
-        <Button Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">8</Button>
-        <Button Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">9</Button>
+        <Button x:Name="PushButtonSeven" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">7</Button>
+        <Button x:Name="PushButtonEight" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">8</Button>
+        <Button x:Name="PushButtonNine" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">9</Button>
         <Button Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="135,0,75,0" VerticalAlignment="Center">C</Button>
-        <Button Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="210,0,0,0" VerticalAlignment="Center">AC</Button>
+        <Button x:Name="PushButtonAC" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="210,0,0,0" VerticalAlignment="Center">AC</Button>
 
         <!-- Row4 -->
-        <Button Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">4</Button>
-        <Button Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">5</Button>
-        <Button Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">6</Button>
+        <Button x:Name="PushButtonFour" Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">4</Button>
+        <Button x:Name="PushButtonFive" Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">5</Button>
+        <Button x:Name="PushButtonSix" Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">6</Button>
         <Button Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="135,0,75,0" VerticalAlignment="Center">x</Button>
         <Button Grid.Row="7" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="210,0,0,0" VerticalAlignment="Center">÷</Button>
 
         <!-- Row5 -->
-        <Button Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">1</Button>
-        <Button Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">2</Button>
-        <Button Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">3</Button>
+        <Button x:Name="PushButtonOne" Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">1</Button>
+        <Button x:Name="PushButtonTwo" Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">2</Button>
+        <Button x:Name="PushButtonThree" Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">3</Button>
         <Button Grid.Row="9" Grid.Column="1" Foreground="White" Background="Black" Margin="135,0,75,0" Grid.RowSpan="3">+</Button>
         <Button Grid.Row="9" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="210,0,0,0" VerticalAlignment="Center">-</Button>
         
