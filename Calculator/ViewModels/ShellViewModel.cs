@@ -14,6 +14,7 @@ namespace Calculator.ViewModels
         private bool plusFlag = false, minusFlag = false, multiFlag = false, divideFlag = false, isSecondInput = false;
    
         private decimal firstInputNum, secondInputNum;
+        private decimal maxNum = 100000000000000000000M;
 
 		public decimal Num
 		{
@@ -43,7 +44,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -60,7 +61,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -102,7 +103,7 @@ namespace Calculator.ViewModels
                         IsDotButtonPushed = false;
                     }
                     // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    else if (CheckInputNumLenght(tempNum.Length + 1))
                     {
                         firstInputNum = decimal.Parse(tempNum + ".00");
                         Num = firstInputNum;
@@ -118,7 +119,7 @@ namespace Calculator.ViewModels
                         Num = firstInputNum;
                     }
                     // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    else if (CheckInputNumLenght(tempNum.Length + 1))
                     {
                         firstInputNum = decimal.Parse(tempNum + "00");
                         Num = firstInputNum;
@@ -137,7 +138,7 @@ namespace Calculator.ViewModels
                         IsDotButtonPushed = false;
                     }
                     // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    else if (CheckInputNumLenght(tempNum.Length + 1))
                     {
                         secondInputNum = decimal.Parse(tempNum + ".00");
                         Num = secondInputNum;
@@ -153,7 +154,7 @@ namespace Calculator.ViewModels
                         Num = secondInputNum;
                     }
                     // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
-                    else if (CheckCurrentNumLenght(tempNum.Length + 1))
+                    else if (CheckInputNumLenght(tempNum.Length + 1))
                     {
                         secondInputNum = decimal.Parse(tempNum + "00");
                         Num = secondInputNum;
@@ -171,7 +172,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -188,7 +189,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -214,7 +215,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -231,7 +232,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -257,7 +258,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -274,7 +275,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -300,7 +301,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -317,7 +318,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -343,7 +344,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -360,7 +361,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -386,7 +387,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -403,7 +404,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -429,7 +430,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -446,7 +447,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -472,7 +473,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -489,7 +490,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -515,7 +516,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -532,7 +533,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckCurrentNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length))
                 {
                     if (IsDotButtonPushed)
                     {
@@ -648,9 +649,16 @@ namespace Calculator.ViewModels
             {
                 firstInputNum += secondInputNum;
                 tempNum = firstInputNum.ToString();
+
+                // 計算結果の桁数が20以下なら表示する。
                 if (CheckCurrentNumLenght(tempNum.Length))
                 {
                     Num = firstInputNum;
+                }
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                else if (firstInputNum >= maxNum)
+                {
+                    Num = maxNum - 1;
                 }
                 //plusFlag = false;
             }
@@ -658,9 +666,16 @@ namespace Calculator.ViewModels
             {
                 firstInputNum -= secondInputNum;
                 tempNum = firstInputNum.ToString();
+
+                // 計算結果の桁数が20以下なら表示する。
                 if (CheckCurrentNumLenght(tempNum.Length))
                 {
                     Num = firstInputNum;
+                }
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                else if (firstInputNum >= maxNum)
+                {
+                    Num = maxNum - 1;
                 }
                 //minusFlag = false;
             }
@@ -668,9 +683,16 @@ namespace Calculator.ViewModels
             {
                 firstInputNum *= secondInputNum;
                 tempNum = firstInputNum.ToString();
+
+                // 計算結果の桁数が20以下なら表示する。
                 if (CheckCurrentNumLenght(tempNum.Length))
                 {
                     Num = firstInputNum;
+                }
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                else if (firstInputNum >= maxNum)
+                {
+                    Num = maxNum - 1;
                 }
                 //multiFlag = false;
             }
@@ -678,9 +700,16 @@ namespace Calculator.ViewModels
             {
                 firstInputNum /= secondInputNum;
                 tempNum = firstInputNum.ToString();
+
+                // 計算結果の桁数が20以下なら表示する。
                 if (CheckCurrentNumLenght(tempNum.Length))
                 {
                     Num = firstInputNum;
+                }
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                else if (firstInputNum >= maxNum)
+                {
+                    Num = maxNum - 1;
                 }
                 //divideFlag = false;
             }
@@ -694,7 +723,7 @@ namespace Calculator.ViewModels
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
-        private bool CheckCurrentNumLenght(int length)
+        private bool CheckInputNumLenght(int length)
 		{
 			if (length < 20)
 			{
@@ -719,6 +748,20 @@ namespace Calculator.ViewModels
             return false;
         }
 
+        /// <summary>
+        /// 計算結果が20桁以下かチェックする。未満ならtrue、以上ならfalseを返す。
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private bool CheckCurrentNumLenght(int length)
+        {
+            if (length <= 20)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// 現在のテキストボックス入力値が0かどうか判定する。0ならtrue、でなければfalseを返す。
