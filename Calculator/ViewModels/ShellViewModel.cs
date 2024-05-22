@@ -559,6 +559,32 @@ namespace Calculator.ViewModels
         }
 
         /// <summary>
+        /// [AC]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonC()
+        {
+            string temp;
+            int count;
+
+            if (!isSecondInput)
+            {
+                temp = Num.ToString();
+                count = temp.Length;
+                temp = temp.Substring(0, count - 1);
+                firstInputNum = decimal.Parse(temp);
+                Num = firstInputNum;
+            }
+            else
+            {
+                temp = Num.ToString();
+                count = temp.Length;
+                temp = temp.Substring(0, count - 1);
+                secondInputNum = decimal.Parse(temp);
+                Num = secondInputNum;
+            }
+        }
+
+        /// <summary>
         /// [.]ボタンが入力された時の処理
         /// </summary>
         public void PushButtonDot()

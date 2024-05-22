@@ -42,7 +42,7 @@
         <Button x:Name="PushButtonSeven" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="0,0,210,0" VerticalAlignment="Top">7</Button>
         <Button x:Name="PushButtonEight" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="46,0,164,0" VerticalAlignment="Top">8</Button>
         <Button x:Name="PushButtonNine" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="90,0,120,0" VerticalAlignment="Top">9</Button>
-        <Button Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="135,0,75,0" VerticalAlignment="Center">C</Button>
+        <Button x:Name="PushButtonC" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="135,0,75,0" VerticalAlignment="Center">C</Button>
         <Button x:Name="PushButtonAC" Grid.Row="5" Grid.Column="1" Height="20" Foreground="White" Background="Black" Margin="210,0,0,0" VerticalAlignment="Center">AC</Button>
 
         <!-- Row4 -->
