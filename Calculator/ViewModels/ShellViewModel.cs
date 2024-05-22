@@ -712,11 +712,16 @@ namespace Calculator.ViewModels
         /// </summary>
         public void PushButtonMPlus()
         {
+            string tempNum;
+
             if (isSecondInput)
             {
                 if (plusFlag)
                 {
                     mem += firstInputNum + secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
@@ -725,6 +730,9 @@ namespace Calculator.ViewModels
                 else if (minusFlag)
                 {
                     mem += firstInputNum - secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
@@ -733,6 +741,9 @@ namespace Calculator.ViewModels
                 else if (multiFlag)
                 {
                     mem += firstInputNum * secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
@@ -741,13 +752,148 @@ namespace Calculator.ViewModels
                 else if (divideFlag)
                 {
                     mem += firstInputNum / secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
                     divideFlag = false;
                 }
             }
+
+            void AdjustResult()
+            {
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                if (mem >= maxNum)
+                {
+                    mem = maxNum - 1;
+                }
+
+                int numLength = tempNum.Length;
+                // 小数の場合の処理
+                if (mem > 0 && mem - Math.Floor(mem) != 0M)
+                {
+                    if (numLength < 20)
+                    {
+                        tempNum = tempNum.Substring(0, numLength);
+                    }
+                    else 
+                    {
+                        tempNum = tempNum.Substring(0, 20);
+                    }
+                    
+                    mem = decimal.Parse(tempNum);
+                }
+                else if (mem < 0 && mem - Math.Ceiling(mem) != 0M)
+                {
+                    if (numLength < 20)
+                    {
+                        tempNum = tempNum.Substring(0, numLength);
+                    }
+                    else
+                    {
+                        tempNum = tempNum.Substring(0, 20);
+                    }
+                    mem = decimal.Parse(tempNum);
+                }
+            }
         }
+
+        /// <summary>
+        /// [M-]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonMMinus()
+        {
+            string tempNum;
+
+            if (isSecondInput)
+            {
+                if (plusFlag)
+                {
+                    mem -= firstInputNum + secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    plusFlag = false;
+                }
+                else if (minusFlag)
+                {
+                    mem -= firstInputNum - secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    minusFlag = false;
+                }
+                else if (multiFlag)
+                {
+                    mem -= firstInputNum * secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    multiFlag = false;
+                }
+                else if (divideFlag)
+                {
+                    mem -= firstInputNum / secondInputNum;
+                    tempNum = mem.ToString();
+                    AdjustResult();
+
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    divideFlag = false;
+                }
+            }
+
+            void AdjustResult()
+            {
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                if (mem >= maxNum)
+                {
+                    mem = maxNum - 1;
+                }
+
+                int numLength = tempNum.Length;
+                // 小数の場合の処理
+                if (mem > 0 && mem - Math.Floor(mem) != 0M)
+                {
+                    if (numLength < 20)
+                    {
+                        tempNum = tempNum.Substring(0, numLength);
+                    }
+                    else
+                    {
+                        tempNum = tempNum.Substring(0, 20);
+                    }
+
+                    mem = decimal.Parse(tempNum);
+                }
+                else if (mem < 0 && mem - Math.Ceiling(mem) != 0M)
+                {
+                    if (numLength < 20)
+                    {
+                        tempNum = tempNum.Substring(0, numLength);
+                    }
+                    else
+                    {
+                        tempNum = tempNum.Substring(0, 20);
+                    }
+                    mem = decimal.Parse(tempNum);
+                }
+            }
+        }
+
+        // TODO : memが桁あふれしている場合、桁数チェックにより入力出来ない問題(1/3 →M+ → 1+1など→M+→0.6666666666... 入力時の桁数チェックにより1の入力が受け付けられていないことが原因)
 
         /// <summary>
         /// [MRC]ボタンが入力された時の処理
