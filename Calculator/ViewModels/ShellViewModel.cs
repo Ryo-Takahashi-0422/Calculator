@@ -649,58 +649,32 @@ namespace Calculator.ViewModels
             {
                 firstInputNum += secondInputNum;
                 tempNum = firstInputNum.ToString();
-
-                // 計算結果の桁数が20以下なら表示する。
-                if (CheckCurrentNumLenght(tempNum.Length))
-                {
-                    Num = firstInputNum;
-                }
-                // 計算結果が最大値より大きい場合、最大値を表示する
-                else if (firstInputNum >= maxNum)
-                {
-                    Num = maxNum - 1;
-                }
-                //plusFlag = false;
+                ProcessResult();
             }
             else if (minusFlag) 
             {
                 firstInputNum -= secondInputNum;
                 tempNum = firstInputNum.ToString();
-
-                // 計算結果の桁数が20以下なら表示する。
-                if (CheckCurrentNumLenght(tempNum.Length))
-                {
-                    Num = firstInputNum;
-                }
-                // 計算結果が最大値より大きい場合、最大値を表示する
-                else if (firstInputNum >= maxNum)
-                {
-                    Num = maxNum - 1;
-                }
-                //minusFlag = false;
+                ProcessResult();
             }
             else if (multiFlag)
             {
                 firstInputNum *= secondInputNum;
                 tempNum = firstInputNum.ToString();
-
-                // 計算結果の桁数が20以下なら表示する。
-                if (CheckCurrentNumLenght(tempNum.Length))
-                {
-                    Num = firstInputNum;
-                }
-                // 計算結果が最大値より大きい場合、最大値を表示する
-                else if (firstInputNum >= maxNum)
-                {
-                    Num = maxNum - 1;
-                }
-                //multiFlag = false;
+                ProcessResult();
             }
             else if (divideFlag)
             {
                 firstInputNum /= secondInputNum;
                 tempNum = firstInputNum.ToString();
+                ProcessResult();
+            }
 
+            isSecondInput = false;
+            dotButtonActive = true;
+
+            void ProcessResult()
+            {
                 // 計算結果の桁数が20以下なら表示する。
                 if (CheckCurrentNumLenght(tempNum.Length))
                 {
@@ -710,12 +684,21 @@ namespace Calculator.ViewModels
                 else if (firstInputNum >= maxNum)
                 {
                     Num = maxNum - 1;
+                    firstInputNum = maxNum; // TODO : 1e + ...といった表記にする
                 }
-                //divideFlag = false;
+                else if (firstInputNum > 0 && firstInputNum - Math.Floor(firstInputNum) != 0M)
+                {
+                    tempNum = tempNum.Substring(0, 20);
+                    firstInputNum = decimal.Parse(tempNum);
+                    Num = firstInputNum;
+                }
+                else if (firstInputNum < 0 && firstInputNum - Math.Ceiling(firstInputNum) != 0M)
+                {
+                    tempNum = tempNum.Substring(0, 20);
+                    firstInputNum = decimal.Parse(tempNum);
+                    Num = firstInputNum;
+                }
             }
-
-            isSecondInput = false;
-            dotButtonActive = true;
         }
 
         /// <summary>
