@@ -559,7 +559,7 @@ namespace Calculator.ViewModels
         }
 
         /// <summary>
-        /// [AC]ボタンが入力された時の処理
+        /// [C]ボタンが入力された時の処理
         /// </summary>
         public void PushButtonC()
         {
