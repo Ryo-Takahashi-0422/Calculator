@@ -678,6 +678,7 @@ namespace Calculator.ViewModels
         public void PushButtonAC()
         {
             Num = 0;
+            mem = 0;
         }
 
         /// <summary>
@@ -718,20 +719,32 @@ namespace Calculator.ViewModels
                     mem += firstInputNum + secondInputNum;
                     firstInputNum = 0;
                     secondInputNum = 0;
-                    Num = 0;
+                    isAfterPushMathSymbol = true;
                     plusFlag = false;
                 }
                 else if (minusFlag)
                 {
                     mem += firstInputNum - secondInputNum;
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    minusFlag = false;
                 }
                 else if (multiFlag)
                 {
                     mem += firstInputNum * secondInputNum;
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    multiFlag = false;
                 }
                 else if (divideFlag)
                 {
                     mem += firstInputNum / secondInputNum;
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    isAfterPushMathSymbol = true;
+                    divideFlag = false;
                 }
             }
         }
@@ -742,7 +755,6 @@ namespace Calculator.ViewModels
         public void PushButtonMRC()
         {
             Num = mem;
-            mem = 0;
             firstInputNum = 0;
             secondInputNum = 0;
         }
@@ -765,7 +777,6 @@ namespace Calculator.ViewModels
         public void PushButtonPlus()
         {
             firstInputNum = Num;
-            //Num = 0;
 
             plusFlag = true;
             minusFlag = false;
@@ -783,7 +794,6 @@ namespace Calculator.ViewModels
         public void PushButtonMinus()
         {
             firstInputNum = Num;
-            Num = 0;
 
             plusFlag = false;
             minusFlag = true;
@@ -801,7 +811,6 @@ namespace Calculator.ViewModels
         public void PushButtonMulti()
         {
             firstInputNum = Num;
-            Num = 0;
 
             plusFlag = false;
             minusFlag = false;
@@ -819,7 +828,6 @@ namespace Calculator.ViewModels
         public void PushButtonDivide()
         {
             firstInputNum = Num;
-            Num = 0;
 
             plusFlag = false;
             minusFlag = false;
