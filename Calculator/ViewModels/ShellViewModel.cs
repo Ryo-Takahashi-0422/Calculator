@@ -15,6 +15,7 @@ namespace Calculator.ViewModels
    
         private decimal firstInputNum, secondInputNum;
         private decimal maxNum = 100000000000000000000M;
+        private decimal mem = 0;
 
 		public decimal Num
 		{
@@ -585,6 +586,47 @@ namespace Calculator.ViewModels
         }
 
         /// <summary>
+        /// [M+]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonMPlus()
+        {
+            if (isSecondInput)
+            {
+                if (plusFlag)
+                {
+                    mem += firstInputNum + secondInputNum;
+                    firstInputNum = 0;
+                    secondInputNum = 0;
+                    Num = 0;
+                    plusFlag = false;
+                }
+                else if (minusFlag)
+                {
+                    mem += firstInputNum - secondInputNum;
+                }
+                else if (multiFlag)
+                {
+                    mem += firstInputNum * secondInputNum;
+                }
+                else if (divideFlag)
+                {
+                    mem += firstInputNum / secondInputNum;
+                }
+            }
+        }
+
+        /// <summary>
+        /// [MRC]ボタンが入力された時の処理
+        /// </summary>
+        public void PushButtonMRC()
+        {
+            Num = mem;
+            mem = 0;
+            firstInputNum = 0;
+            secondInputNum = 0;
+        }
+
+        /// <summary>
         /// [.]ボタンが入力された時の処理
         /// </summary>
         public void PushButtonDot()
@@ -648,7 +690,7 @@ namespace Calculator.ViewModels
         }
 
         /// <summary>
-        /// [x]ボタンが入力された時の処理
+        /// [÷]ボタンが入力された時の処理
         /// </summary>
         public void PushButtonDivide()
         {
