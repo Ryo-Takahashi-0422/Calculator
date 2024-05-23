@@ -14,7 +14,7 @@ namespace Calculator.ViewModels
         private int maxNumDigit = 20;
         private bool IsDotButtonPushed = false;
         private bool dotButtonActive = true;
-        private bool isSecondInput = false, isAfterPushMathSymbol = false;
+        private bool isSecondInput = false, isAfterPushMathSymbol = false, isAfterPushMRC = false;
    
         private decimal firstInputNum, secondInputNum;
         private decimal maxNum = 100000000000000000000M;
@@ -159,14 +159,15 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        // 数学記号を押した直後は入力をそのまま表示する
-                        if (isAfterPushMathSymbol)
+                        // 数学記号かMRCを押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol || isAfterPushMRC)
                         {
                             secondInputNum = decimal.Parse(m_Num);
                             Num = secondInputNum;
                             isAfterPushMathSymbol = false;
+                            isAfterPushMRC = false;
                         }
-                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        // でなければ入力を現在の表記に付け加える
                         else
                         {
                             secondInputNum = decimal.Parse(tempNum + m_Num);
@@ -187,14 +188,15 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        // 数学記号を押した直後は入力をそのまま表示する
-                        if (isAfterPushMathSymbol)
+                        // 数学記号かMRCを押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol || isAfterPushMRC)
                         {
                             secondInputNum = decimal.Parse(m_Num);
                             Num = secondInputNum;
                             isAfterPushMathSymbol = false;
+                            isAfterPushMRC = false;
                         }
-                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        // でなければ入力を現在の表記に付け加える
                         else
                         {
                             secondInputNum = decimal.Parse(tempNum + m_Num);
@@ -240,12 +242,13 @@ namespace Calculator.ViewModels
                 }
                 else
                 {
-                    // 数学記号を押した直後は入力をそのまま表示する
-                    if (isAfterPushMathSymbol)
+                    // 数学記号かMRCを押した直後は入力をそのまま表示する
+                    if (isAfterPushMathSymbol || isAfterPushMRC)
                     {
                         secondInputNum = decimal.Parse("0");
                         Num = secondInputNum;
                         isAfterPushMathSymbol = false;
+                        isAfterPushMRC = false;
                     }
                     // 現在のテキストボックス値桁数が19桁なら0を追加する。
                     else if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
@@ -291,12 +294,13 @@ namespace Calculator.ViewModels
                     // 現在のテキストボックス値桁数に1を足した結果が20桁未満なら00を追加する。
                     else if (CheckInputNumLenght(tempNum.Length + 1))
                     {
-                        // 数学記号を押した直後は入力をそのまま表示する
-                        if (isAfterPushMathSymbol)
+                        // 数学記号かMRCを押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol || isAfterPushMRC)
                         {
                             secondInputNum = decimal.Parse("0");
                             Num = secondInputNum;
                             isAfterPushMathSymbol = false;
+                            isAfterPushMRC = false;
                         }
                         // 数学記号を押した直後は入力をそのまま表示する
                         else if (isAfterPushMathSymbol)
@@ -324,6 +328,11 @@ namespace Calculator.ViewModels
         {
             Num = 0;
             mem = 0;
+            IsDotButtonPushed = false;
+            isAfterPushMathSymbol = false;
+            isAfterPushMRC = false;
+            isSecondInput = false;
+            dotButtonActive = true;
         }
 
         /// <summary>
@@ -331,8 +340,15 @@ namespace Calculator.ViewModels
         /// </summary>
         public void PushButtonC()
         {
-            string temp;
+            string temp = Num.ToString();
             int count;
+
+            // 入力値が一桁の場合
+            if(temp.Length == 1)
+            {
+                Num = 0;
+                return;
+            }
 
             if (!isSecondInput)
             {
@@ -406,6 +422,12 @@ namespace Calculator.ViewModels
                     calculateFlags |= ~CalculateFlags.div;
                 }
             }
+            else
+            {
+                mem += Num;
+            }
+
+            isSecondInput = false;
 
             void AdjustResult()
             {
@@ -499,6 +521,12 @@ namespace Calculator.ViewModels
                     calculateFlags |= ~CalculateFlags.div;
                 }
             }
+            else
+            {
+                mem -= Num;
+            }
+
+            isSecondInput = false;
 
             void AdjustResult()
             {
@@ -543,9 +571,19 @@ namespace Calculator.ViewModels
         /// </summary>
         public void PushButtonMRC()
         {
-            Num = mem;
+            if(mem == 0M)
+            {
+                Num = 0;
+                mem = 0;
+            }
+            else
+            {
+                Num = mem;
+            }
+            
             firstInputNum = 0;
             secondInputNum = 0;
+            isAfterPushMRC = true;
         }
 
         /// <summary>
