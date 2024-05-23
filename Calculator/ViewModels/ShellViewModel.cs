@@ -477,7 +477,21 @@ namespace Calculator.ViewModels
             }
             else
             {
-                mem += Num;
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                if (mem >= maxNum)
+                {
+                    mem = maxNum - 1;
+
+                }
+                // 計算結果が最小値より小さい場合、最小値を表示する
+                else if (mem <= minNum)
+                {
+                    mem = minNum + 1;
+                }
+                else
+                {
+                    mem += Num;
+                }                
             }
 
             isSecondInput = false;
@@ -581,7 +595,21 @@ namespace Calculator.ViewModels
             }
             else
             {
-                mem -= Num;
+                // 計算結果が最大値より大きい場合、最大値を表示する
+                if (mem >= maxNum)
+                {
+                    mem = maxNum - 1;
+
+                }
+                // 計算結果が最小値より小さい場合、最小値を表示する
+                else if (mem <= minNum)
+                {
+                    mem = minNum + 1;
+                }
+                else
+                {
+                    mem -= Num;
+                }                
             }
 
             isSecondInput = false;
