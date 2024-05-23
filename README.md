@@ -10,4 +10,5 @@ WPFを用いて作成した電卓プログラムです。
 - Caliburn Micro(ver 4.0.212)  
   
 # 参考
+- WPF in C# with MVVM using Caliburn Micro
 https://www.youtube.com/watch?v=laPFq3Fhs8k  
