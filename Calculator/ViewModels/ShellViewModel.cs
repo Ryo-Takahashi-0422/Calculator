@@ -9,6 +9,7 @@ namespace Calculator.ViewModels
     public class ShellViewModel : Caliburn.Micro.Screen
     {
 		private decimal _num = 0;
+        private int maxNumDigit = 20;
         private bool IsDotButtonPushed = false;
         private bool dotButtonActive = true;
         private bool plusFlag = false, minusFlag = false, multiFlag = false, divideFlag = false, isSecondInput = false, isAfterPushMathSymbol = false;
@@ -62,7 +63,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -212,7 +213,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -266,7 +267,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -320,7 +321,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -374,7 +375,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -428,7 +429,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -482,7 +483,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -536,7 +537,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -590,7 +591,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -644,7 +645,7 @@ namespace Calculator.ViewModels
             }
             else
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
@@ -774,26 +775,26 @@ namespace Calculator.ViewModels
                 // 小数の場合の処理
                 if (mem > 0 && mem - Math.Floor(mem) != 0M)
                 {
-                    if (numLength < 20)
+                    if (numLength < maxNumDigit)
                     {
                         tempNum = tempNum.Substring(0, numLength);
                     }
                     else 
                     {
-                        tempNum = tempNum.Substring(0, 20);
+                        tempNum = tempNum.Substring(0, maxNumDigit);
                     }
                     
                     mem = decimal.Parse(tempNum);
                 }
                 else if (mem < 0 && mem - Math.Ceiling(mem) != 0M)
                 {
-                    if (numLength < 20)
+                    if (numLength < maxNumDigit)
                     {
                         tempNum = tempNum.Substring(0, numLength);
                     }
                     else
                     {
-                        tempNum = tempNum.Substring(0, 20);
+                        tempNum = tempNum.Substring(0, maxNumDigit);
                     }
                     mem = decimal.Parse(tempNum);
                 }
@@ -867,33 +868,31 @@ namespace Calculator.ViewModels
                 // 小数の場合の処理
                 if (mem > 0 && mem - Math.Floor(mem) != 0M)
                 {
-                    if (numLength < 20)
+                    if (numLength < maxNumDigit)
                     {
                         tempNum = tempNum.Substring(0, numLength);
                     }
                     else
                     {
-                        tempNum = tempNum.Substring(0, 20);
+                        tempNum = tempNum.Substring(0, maxNumDigit);
                     }
 
                     mem = decimal.Parse(tempNum);
                 }
                 else if (mem < 0 && mem - Math.Ceiling(mem) != 0M)
                 {
-                    if (numLength < 20)
+                    if (numLength < maxNumDigit)
                     {
                         tempNum = tempNum.Substring(0, numLength);
                     }
                     else
                     {
-                        tempNum = tempNum.Substring(0, 20);
+                        tempNum = tempNum.Substring(0, maxNumDigit);
                     }
                     mem = decimal.Parse(tempNum);
                 }
             }
         }
-
-        // TODO : memが桁あふれしている場合、桁数チェックにより入力出来ない問題(1/3 →M+ → 1+1など→M+→0.6666666666... 入力時の桁数チェックにより1の入力が受け付けられていないことが原因)
 
         /// <summary>
         /// [MRC]ボタンが入力された時の処理
@@ -1035,13 +1034,13 @@ namespace Calculator.ViewModels
                 }
                 else if (firstInputNum > 0 && firstInputNum - Math.Floor(firstInputNum) != 0M)
                 {
-                    tempNum = tempNum.Substring(0, 20);
+                    tempNum = tempNum.Substring(0, maxNumDigit);
                     firstInputNum = decimal.Parse(tempNum);
                     Num = firstInputNum;
                 }
                 else if (firstInputNum < 0 && firstInputNum - Math.Ceiling(firstInputNum) != 0M)
                 {
-                    tempNum = tempNum.Substring(0, 20);
+                    tempNum = tempNum.Substring(0, maxNumDigit);
                     firstInputNum = decimal.Parse(tempNum);
                     Num = firstInputNum;
                 }
@@ -1055,7 +1054,7 @@ namespace Calculator.ViewModels
         /// <returns></returns>
         private bool CheckInputNumLenght(int length)
 		{
-			if (length < 20)
+			if (length < maxNumDigit)
 			{
 				return true;
 			}
@@ -1070,7 +1069,7 @@ namespace Calculator.ViewModels
         /// <returns></returns>
         private bool CheckCurrentNumOfDigitIs_19(int length)
         {
-            if (length == 19)
+            if (length == maxNumDigit - 1)
             {
                 return true;
             }
@@ -1085,7 +1084,7 @@ namespace Calculator.ViewModels
         /// <returns></returns>
         private bool CheckCurrentNumLenght(int length)
         {
-            if (length <= 20)
+            if (length <= maxNumDigit)
             {
                 return true;
             }
