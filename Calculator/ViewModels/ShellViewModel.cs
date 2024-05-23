@@ -10,15 +10,66 @@ namespace Calculator.ViewModels
 {
     public class ShellViewModel : Caliburn.Micro.Screen
     {
+        /// <summary>
+        /// 表記のプライベート値
+        /// </summary>
 		private decimal _num = 0;
-        private int maxNumDigit = 20;
-        private bool IsDotButtonPushed = false;
-        private bool dotButtonActive = true;
-        private bool isSecondInput = false, isAfterPushMathSymbol = false, isAfterPushMRC = false;
-   
-        private decimal firstInputNum, secondInputNum;
+
+        /// <summary>
+        /// 演算対象1つ目の入力
+        /// </summary>
+        private decimal firstInputNum;
+
+        /// <summary>
+        /// 演算対象2つ目の入力
+        /// </summary>
+        private decimal secondInputNum;
+
+        /// <summary>
+        /// 最大値
+        /// </summary>
         private decimal maxNum = 100000000000000000000M;
+
+        /// <summary>
+        /// 最小値
+        /// </summary>
+        private decimal minNum = -100000000000000000000M;
+
+        /// <summary>
+        /// メモリー
+        /// </summary>
         private decimal mem = 0;
+
+        /// <summary>
+        /// 最大桁数
+        /// </summary>
+        private int maxNumDigit = 20;
+
+        /// <summary>
+        /// ドットボタンが押下された状態かどうか
+        /// </summary>
+        private bool IsDotButtonPushed = false;
+
+        /// <summary>
+        /// ドットボタンが押下可能かどうか
+        /// </summary>
+        private bool dotButtonActive = true;
+
+        /// <summary>
+        /// 演算対象2つ目の入力状態かどうか
+        /// </summary>
+        private bool isSecondInput = false;
+
+        /// <summary>
+        /// +,-,x,÷,=押下直後かどうか
+        /// </summary>
+        private bool isAfterPushMathSymbol = false;
+
+        /// <summary>
+        /// MRC押下直後かどうか
+        /// </summary>
+        private bool isAfterPushMRC = false;
+   
 
         enum CalculateFlags
         {
@@ -436,6 +487,11 @@ namespace Calculator.ViewModels
                 {
                     mem = maxNum - 1;
                 }
+                // 計算結果が最小値より小さい場合、最小値を表示する
+                else if (mem <= minNum) 
+                {
+                    mem = minNum + 1;
+                }
 
                 int numLength = tempNum.Length;
                 // 小数の場合の処理
@@ -534,6 +590,11 @@ namespace Calculator.ViewModels
                 if (mem >= maxNum)
                 {
                     mem = maxNum - 1;
+                }
+                // 計算結果が最小値より小さい場合、最小値を表示する
+                else if (mem <= minNum)
+                {
+                    mem = minNum + 1;
                 }
 
                 int numLength = tempNum.Length;
@@ -701,7 +762,13 @@ namespace Calculator.ViewModels
                 else if (firstInputNum >= maxNum)
                 {
                     Num = maxNum - 1;
-                    firstInputNum = maxNum; // TODO : 1e + ...といった表記にする
+                    firstInputNum = Num; // TODO : 1e + ...といった表記にする
+                }
+                // 計算結果が最小値より小さい場合、最小値を表示する
+                else if (firstInputNum <= minNum)
+                {
+                    Num = minNum + 1;
+                    firstInputNum = Num; // TODO : 1e + ...といった表記にする
                 }
                 else if (firstInputNum > 0 && firstInputNum - Math.Floor(firstInputNum) != 0M)
                 {
@@ -721,7 +788,7 @@ namespace Calculator.ViewModels
         /// <summary>
         /// 現在の入力値が20桁未満かチェックする。未満ならtrue、以上ならfalseを返す。
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="length">チェックする桁数</param>
         /// <returns></returns>
         private bool CheckInputNumLenght(int length)
 		{
@@ -736,7 +803,7 @@ namespace Calculator.ViewModels
         /// <summary>
         /// 現在の入力値が19桁かチェックする。19桁ならtrue、以上ならfalseを返す。
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="length">チェックする桁数</param>
         /// <returns></returns>
         private bool CheckCurrentNumOfDigitIs_19(int length)
         {
@@ -751,7 +818,7 @@ namespace Calculator.ViewModels
         /// <summary>
         /// 計算結果が20桁以下かチェックする。未満ならtrue、以上ならfalseを返す。
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="length">チェックする桁数</param>
         /// <returns></returns>
         private bool CheckCurrentNumLenght(int length)
         {
