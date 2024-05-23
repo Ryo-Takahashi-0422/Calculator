@@ -14,13 +14,22 @@ namespace Calculator.ViewModels
         private int maxNumDigit = 20;
         private bool IsDotButtonPushed = false;
         private bool dotButtonActive = true;
-        private bool plusFlag = false, minusFlag = false, multiFlag = false, divideFlag = false, isSecondInput = false, isAfterPushMathSymbol = false;
+        private bool isSecondInput = false, isAfterPushMathSymbol = false;
    
         private decimal firstInputNum, secondInputNum;
         private decimal maxNum = 100000000000000000000M;
         private decimal mem = 0;
 
-		public decimal Num
+        enum CalculateFlags
+        {
+            plus = 1,    //0000_0001
+            minus = 2,    //0000_0010
+            multi = 4,    //0000_0100
+            div = 8,    //0000_1000
+        }
+        private CalculateFlags calculateFlags = 0;
+
+        public decimal Num
 		{
 			get 
 			{
@@ -130,7 +139,7 @@ namespace Calculator.ViewModels
         }
 
         /// <summary>
-        /// 数字ボタン押下時の共通処理
+        /// 数字ボタン(00以外)押下時の共通処理
         /// </summary>
         /// <param name="tempNum">現在表記されている値</param>
         /// <param name="inputNum">ボタンの数値</param>
@@ -352,7 +361,7 @@ namespace Calculator.ViewModels
 
             if (isSecondInput)
             {
-                if (plusFlag)
+                if ((calculateFlags & CalculateFlags.plus) == CalculateFlags.plus)
                 {
                     mem += firstInputNum + secondInputNum;
                     tempNum = mem.ToString();
@@ -361,9 +370,9 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    plusFlag = false;
+                    calculateFlags |= ~CalculateFlags.plus;
                 }
-                else if (minusFlag)
+                else if ((calculateFlags & CalculateFlags.minus) == CalculateFlags.minus)
                 {
                     mem += firstInputNum - secondInputNum;
                     tempNum = mem.ToString();
@@ -372,9 +381,9 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    minusFlag = false;
+                    calculateFlags |= ~CalculateFlags.minus;
                 }
-                else if (multiFlag)
+                else if ((calculateFlags & CalculateFlags.multi) == CalculateFlags.multi)
                 {
                     mem += firstInputNum * secondInputNum;
                     tempNum = mem.ToString();
@@ -383,9 +392,9 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    multiFlag = false;
+                    calculateFlags |= ~CalculateFlags.multi;
                 }
-                else if (divideFlag)
+                else if ((calculateFlags & CalculateFlags.div) == CalculateFlags.div)
                 {
                     mem += firstInputNum / secondInputNum;
                     tempNum = mem.ToString();
@@ -394,7 +403,7 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    divideFlag = false;
+                    calculateFlags |= ~CalculateFlags.div;
                 }
             }
 
@@ -445,7 +454,7 @@ namespace Calculator.ViewModels
 
             if (isSecondInput)
             {
-                if (plusFlag)
+                if ((calculateFlags & CalculateFlags.plus) == CalculateFlags.plus)
                 {
                     mem -= firstInputNum + secondInputNum;
                     tempNum = mem.ToString();
@@ -454,9 +463,9 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    plusFlag = false;
+                    calculateFlags |= ~CalculateFlags.plus;
                 }
-                else if (minusFlag)
+                else if ((calculateFlags & CalculateFlags.minus) == CalculateFlags.minus)
                 {
                     mem -= firstInputNum - secondInputNum;
                     tempNum = mem.ToString();
@@ -465,9 +474,9 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    minusFlag = false;
+                    calculateFlags |= ~CalculateFlags.minus;
                 }
-                else if (multiFlag)
+                else if ((calculateFlags & CalculateFlags.multi) == CalculateFlags.multi)
                 {
                     mem -= firstInputNum * secondInputNum;
                     tempNum = mem.ToString();
@@ -476,9 +485,9 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    multiFlag = false;
+                    calculateFlags |= ~CalculateFlags.multi;
                 }
-                else if (divideFlag)
+                else if ((calculateFlags & CalculateFlags.div) == CalculateFlags.div)
                 {
                     mem -= firstInputNum / secondInputNum;
                     tempNum = mem.ToString();
@@ -487,7 +496,7 @@ namespace Calculator.ViewModels
                     firstInputNum = 0;
                     secondInputNum = 0;
                     isAfterPushMathSymbol = true;
-                    divideFlag = false;
+                    calculateFlags |= ~CalculateFlags.div;
                 }
             }
 
@@ -557,13 +566,10 @@ namespace Calculator.ViewModels
         public void PushButtonPlus()
         {
             firstInputNum = Num;
+            calculateFlags &= 0;
+            calculateFlags |= CalculateFlags.plus;
 
-            plusFlag = true;
-            minusFlag = false;
-            multiFlag = false;
-            divideFlag = false;
             isSecondInput = true;
-
             dotButtonActive = true;
             isAfterPushMathSymbol = true;
         }
@@ -574,13 +580,10 @@ namespace Calculator.ViewModels
         public void PushButtonMinus()
         {
             firstInputNum = Num;
+            calculateFlags &= 0;
+            calculateFlags |= CalculateFlags.minus;
 
-            plusFlag = false;
-            minusFlag = true;
-            multiFlag = false;
-            divideFlag = false;
             isSecondInput = true;
-
             dotButtonActive = true;
             isAfterPushMathSymbol = true;
         }
@@ -591,13 +594,10 @@ namespace Calculator.ViewModels
         public void PushButtonMulti()
         {
             firstInputNum = Num;
+            calculateFlags &= 0;
+            calculateFlags |= CalculateFlags.multi;
 
-            plusFlag = false;
-            minusFlag = false;
-            multiFlag = true;
-            divideFlag = false;
             isSecondInput = true;
-
             dotButtonActive = true;
             isAfterPushMathSymbol = true;
         }
@@ -608,13 +608,10 @@ namespace Calculator.ViewModels
         public void PushButtonDivide()
         {
             firstInputNum = Num;
+            calculateFlags &= 0;
+            calculateFlags |= CalculateFlags.div;
 
-            plusFlag = false;
-            minusFlag = false;
-            multiFlag = false;
-            divideFlag = true;
             isSecondInput = true;
-
             dotButtonActive = true;
             isAfterPushMathSymbol = true;
         }
@@ -626,25 +623,25 @@ namespace Calculator.ViewModels
         {
             string tempNum;
 
-            if (plusFlag)
+            if ((calculateFlags & CalculateFlags.plus) == CalculateFlags.plus)
             {
                 firstInputNum += secondInputNum;
                 tempNum = firstInputNum.ToString();
                 ProcessResult();
             }
-            else if (minusFlag) 
+            else if ((calculateFlags & CalculateFlags.minus) == CalculateFlags.minus) 
             {
                 firstInputNum -= secondInputNum;
                 tempNum = firstInputNum.ToString();
                 ProcessResult();
             }
-            else if (multiFlag)
+            else if ((calculateFlags & CalculateFlags.multi) == CalculateFlags.multi)
             {
                 firstInputNum *= secondInputNum;
                 tempNum = firstInputNum.ToString();
                 ProcessResult();
             }
-            else if (divideFlag)
+            else if ((calculateFlags & CalculateFlags.div) == CalculateFlags.div)
             {
                 firstInputNum /= secondInputNum;
                 tempNum = firstInputNum.ToString();
