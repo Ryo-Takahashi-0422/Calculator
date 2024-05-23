@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Calculator.ViewModels
 {
@@ -230,8 +231,15 @@ namespace Calculator.ViewModels
                 }
                 else
                 {
+                    // 数学記号を押した直後は入力をそのまま表示する
+                    if (isAfterPushMathSymbol)
+                    {
+                        secondInputNum = decimal.Parse("0");
+                        Num = secondInputNum;
+                        isAfterPushMathSymbol = false;
+                    }
                     // 現在のテキストボックス値桁数が19桁なら0を追加する。
-                    if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
+                    else if (CheckCurrentNumOfDigitIs_19(tempNum.Length))
                     {
                         firstInputNum = decimal.Parse(tempNum + "0");
                         Num = firstInputNum;
@@ -276,6 +284,13 @@ namespace Calculator.ViewModels
                     {
                         // 数学記号を押した直後は入力をそのまま表示する
                         if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("0");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        else if (isAfterPushMathSymbol)
                         {
                             secondInputNum = decimal.Parse("0");
                             Num = secondInputNum;
