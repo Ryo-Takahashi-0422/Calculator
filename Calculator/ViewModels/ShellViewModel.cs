@@ -139,7 +139,7 @@ namespace Calculator.ViewModels
 
             if (!isSecondInput)
             {
-                if (CheckInputNumLenght(tempNum.Length))
+                if (CheckInputNumLenght(tempNum.Length) || tempNum.Length == maxNumDigit)
                 {
                     if (IsDotButtonPushed)
                     {
