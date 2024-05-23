@@ -56,8 +56,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "0");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("0");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "0");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -206,8 +217,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "1");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("1");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "1");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -260,8 +282,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "2");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("2");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "2");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -314,8 +347,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "3");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("3");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "3");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -368,8 +412,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "4");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("4");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "4");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -422,8 +477,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "5");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("5");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "5");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -476,8 +542,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "6");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("6");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "6");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -530,8 +607,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "7");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("7");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "7");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -584,8 +672,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "8");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("8");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "8");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -638,8 +737,19 @@ namespace Calculator.ViewModels
                     }
                     else
                     {
-                        firstInputNum = decimal.Parse(tempNum + "9");
-                        Num = firstInputNum;
+                        // 数学記号を押した直後は入力をそのまま表示する
+                        if (isAfterPushMathSymbol)
+                        {
+                            secondInputNum = decimal.Parse("9");
+                            Num = secondInputNum;
+                            isAfterPushMathSymbol = false;
+                        }
+                        // 数学記号を押した直後でなければ入力を現在の表記に付け加える
+                        else
+                        {
+                            secondInputNum = decimal.Parse(tempNum + "9");
+                            Num = secondInputNum;
+                        }
                     }
                 }
             }
@@ -1018,6 +1128,7 @@ namespace Calculator.ViewModels
 
             isSecondInput = false;
             dotButtonActive = true;
+            isAfterPushMathSymbol = true;
 
             void ProcessResult()
             {
