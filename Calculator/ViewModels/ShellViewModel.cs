@@ -33,7 +33,7 @@ namespace Calculator.ViewModels
         /// <summary>
         /// 最小値
         /// </summary>
-        private decimal minNum = -100000000000000000000M;
+        private decimal minNum = -10000000000000000000M;
 
         /// <summary>
         /// メモリー
@@ -70,13 +70,15 @@ namespace Calculator.ViewModels
         /// </summary>
         private bool isAfterPushMRC = false;
    
-
+        /// <summary>
+        /// 演算の状態管理
+        /// </summary>
         enum CalculateFlags
         {
-            plus = 1,    //0000_0001
-            minus = 2,    //0000_0010
-            multi = 4,    //0000_0100
-            div = 8,    //0000_1000
+            plus = 1,    //0000_0001 "+"
+            minus = 2,    //0000_0010 "-"
+            multi = 4,    //0000_0100 "x"
+            div = 8,    //0000_1000 "÷"
         }
         private CalculateFlags calculateFlags = 0;
 
